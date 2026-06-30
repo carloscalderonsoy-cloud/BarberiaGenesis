@@ -284,9 +284,11 @@
   .loc-map { position: relative; aspect-ratio: 4/3; overflow: hidden; border: 1px solid rgba(138,114,54,0.3); background: var(--surface); }
   .loc-map iframe { width: 100%; height: 100%; border: 0; filter: invert(0.92) hue-rotate(200deg) saturate(0.4); }
   .loc-map__overlay {
-    position: absolute; inset: 0; pointer-events: none;
+    position: absolute; inset: 0; pointer-events: auto; cursor: pointer; display: block;
     box-shadow: inset 0 0 0 1px rgba(201,168,76,0.3);
+    transition: box-shadow .2s ease;
   }
+  .loc-map__overlay:hover { box-shadow: inset 0 0 0 2px rgba(201,168,76,0.7); }
 
   /* ============ CTA CIERRE ============ */
   .closer { background: var(--gold); color: var(--black); position: relative; overflow: hidden; }
@@ -354,9 +356,9 @@
     <!-- ============ BARRA PRUEBA SOCIAL (firma) ============ -->
     <section class="proof" aria-label="Prueba social">
       <div class="proof__grid js-stats">
-        <div class="proof__cell"><span class="proof__num" data-to="55.7" data-suffix="K" data-dec="1">0</span><span class="proof__lbl">seguidores TikTok</span></div>
-        <div class="proof__cell"><span class="proof__num" data-to="100" data-suffix="%" data-dec="0">0</span><span class="proof__lbl">recomendado</span></div>
-        <div class="proof__cell"><span class="proof__num" data-to="3.9" data-prefix="+" data-suffix="M" data-dec="1">0</span><span class="proof__lbl">vistas en un video</span></div>
+        <div class="proof__cell"><span class="proof__num" data-to="4.8" data-suffix="★" data-dec="1">0</span><span class="proof__lbl">calificación en Google</span></div>
+        <div class="proof__cell"><span class="proof__num" data-to="590" data-suffix="" data-dec="0">0</span><span class="proof__lbl">reseñas verificadas</span></div>
+        <div class="proof__cell"><span class="proof__num" data-to="7" data-suffix=" días" data-dec="0">0</span><span class="proof__lbl">abierto toda la semana</span></div>
       </div>
     </section>
 
@@ -518,7 +520,7 @@
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade">
             </iframe>
-            <div class="loc-map__overlay"></div>
+            <a class="loc-map__overlay" href="https://maps.app.goo.gl/86kz1NtEWUU6D3BN7" target="_blank" rel="noopener noreferrer" aria-label="Ver Genesis Barbería en Google Maps"></a>
           </div>
         </div>
       </div>
