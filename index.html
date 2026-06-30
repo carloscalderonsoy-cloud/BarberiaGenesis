@@ -118,69 +118,52 @@
   /* ============ HERO ============ */
   .hero {
     position: relative; overflow: hidden;
+    background: var(--black);
+    min-height: 100svh; display: flex; align-items: center;
+  }
+  .hero__video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; z-index: 0;
+  }
+  .hero__overlay {
+    position: absolute; inset: 0; z-index: 1;
     background:
-      radial-gradient(110% 70% at 70% -5%, rgba(201,168,76,0.13) 0%, rgba(201,168,76,0) 55%),
-      var(--black);
+      linear-gradient(105deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.72) 45%, rgba(10,10,10,0.42) 100%),
+      linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.65) 100%);
   }
   .grain::before {
-    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
   }
   .hero::after {
     content: ""; position: absolute; right: -8%; bottom: -28%; width: 55%; height: 190%;
     border-left: 1px solid rgba(201,168,76,0.18); transform: rotate(26deg); transform-origin: bottom right;
-    pointer-events: none; z-index: 0;
+    pointer-events: none; z-index: 3;
   }
   .hero__inner {
-    position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr; gap: 40px;
-    padding-top: 44px; padding-bottom: 44px;
+    position: relative; z-index: 4;
+    padding-top: 60px; padding-bottom: 60px; width: 100%;
   }
-  .hero__copy { max-width: 560px; }
+  .hero__copy { max-width: 600px; }
   .hero__eyebrow { margin-bottom: 20px; }
   .hero h1 {
     font-family: var(--font-display); font-weight: 400;
-    font-size: clamp(48px, 13vw, 88px); line-height: 0.9; letter-spacing: 0.01em;
+    font-size: clamp(52px, 14vw, 96px); line-height: 0.9; letter-spacing: 0.01em;
     margin: 0; text-transform: uppercase;
+    text-shadow: 0 2px 32px rgba(0,0,0,0.8), 0 1px 6px rgba(0,0,0,0.6);
   }
-  .hero h1 .gold { color: var(--gold); }
+  .hero h1 .gold {
+    color: var(--gold);
+    text-shadow: 0 0 48px rgba(201,168,76,0.35), 0 2px 16px rgba(0,0,0,0.7);
+  }
   .hero__sub { color: var(--muted); font-size: 16px; margin: 22px 0 30px; max-width: 40ch; }
   .hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
-
-  /* hero art collage */
-  .hero__art { position: relative; width: 100%; max-width: 460px; margin: 0 auto; }
-  .art-frame { position: relative; overflow: hidden; border: 1px solid rgba(138,114,54,0.45); background: var(--charcoal); }
-  .art-frame img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.04) saturate(0.92); }
-  .art-frame::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,0.55) 100%), rgba(201,168,76,0.05);
-  }
-  .art-main { aspect-ratio: 4/5; width: 80%; margin-left: auto; box-shadow: 0 30px 70px rgba(0,0,0,0.5); }
-  .art-sub {
-    position: absolute; left: 0; bottom: -6%; width: 46%; aspect-ratio: 3/4;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.55); z-index: 2;
-  }
-  .art-badge {
-    position: absolute; top: 14px; right: 14px; z-index: 3;
-    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--paper); background: rgba(10,10,10,0.55); border: 1px solid rgba(201,168,76,0.4);
-    padding: 6px 10px; border-radius: 20px;
-  }
-  .art-pole {
-    position: absolute; left: 50%; bottom: -22px; transform: translateX(-50%); z-index: 3;
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--dim);
-  }
   @media (min-width: 860px) {
-    .hero { min-height: calc(100svh - 74px); display: flex; align-items: center; }
-    .hero__inner {
-      grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 64px;
-      padding-top: 40px; padding-bottom: 40px; width: 100%;
-    }
-    .hero__art { max-width: none; }
-    .art-main { aspect-ratio: auto; height: 480px; width: 82%; }
-    .art-sub { width: 44%; aspect-ratio: auto; height: 270px; bottom: -8%; }
+    .hero__inner { padding-top: 80px; padding-bottom: 80px; }
+    .hero h1 { font-size: clamp(72px, 9vw, 104px); }
   }
+  @media (prefers-reduced-motion: reduce) { .hero__video { display: none; } }
 
   /* ============ SOCIAL PROOF BAR ============ */
   .proof { background: var(--charcoal); border-top: 1px solid rgba(138,114,54,0.5); border-bottom: 1px solid rgba(138,114,54,0.2); }
@@ -356,6 +339,10 @@
   <main id="top">
     <!-- ============ HERO ============ -->
     <section class="hero grain">
+      <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
+        <source src="assets/Video/Barberia2.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__overlay"></div>
       <div class="wrap hero__inner">
         <div class="hero__copy">
           <p class="eyebrow hero__eyebrow js-location">Clouthier · Zapopan</p>
@@ -365,17 +352,6 @@
             <a class="btn btn--gold btn--lg js-book" href="#">Agendar mi cita &rarr;</a>
             <a class="link-arrow" href="#galeria">Ver nuestro trabajo &darr;</a>
           </div>
-        </div>
-
-        <div class="hero__art reveal">
-          <figure class="art-frame art-main">
-            <img src="assets/images/hero-shave.png" alt="Perfilado con navaja en Genesis Barbería" />
-            <span class="art-badge">Genesis · Clouthier</span>
-          </figure>
-          <figure class="art-frame art-sub">
-            <img src="assets/images/barba-navaja.png" alt="Diseño de barba con navaja" />
-          </figure>
-          <span class="art-pole">Trabajo real, sin filtros</span>
         </div>
       </div>
     </section>
@@ -517,7 +493,7 @@
               <div class="loc-row__icon">📍</div>
               <div>
                 <span class="loc-row__label">Dirección</span>
-                <p class="loc-row__val">Av. Clouthier, Zapopan<br/>Jalisco, México</p>
+                <p class="loc-row__val">Av. Manuel J. Clouthier 1380, Local 3<br/>Puerta del Sol, Zapopan, Jal.</p>
               </div>
             </div>
             <div class="loc-row">
@@ -542,7 +518,7 @@
           <div class="loc-map">
             <iframe
               title="Ubicación Genesis Barbería Zapopan"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.1!2d-103.4!3d20.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842f4f0000000001%3A0x0!2sZapopan%2C+Jalisco!5e0!3m2!1ses!2smx!4v1234567890"
+              src="https://maps.google.com/maps?q=Av+Manuel+J+Clouthier+1380+Local+3,+Puerta+del+Sol,+Zapopan,+Jalisco,+Mexico&output=embed&hl=es"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade">
