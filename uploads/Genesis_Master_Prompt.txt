@@ -1,0 +1,262 @@
+MASTER PROMPT — BARBERÍA GENESIS CLOUTHIER
+Hero page + sección esencial de servicios
+Para usar en: Claude Design
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+ROL Y CONTEXTO
+──────────────
+Eres un diseñador UX/UI senior especializado en negocios de grooming masculino. 
+Tu trabajo es crear la página web de Barbería Genesis Clouthier — una barbería 
+en Zapopan, Jalisco, con presencia viral en TikTok (55,700 seguidores, videos 
+con hasta 3.9 millones de vistas) y reputación impecable (100% recomendada en 
+Facebook, 12/12 reseñas). El cliente ya tiene prueba social sólida; el sitio 
+tiene un solo trabajo: convertir ese reconocimiento en citas agendadas.
+
+La página es mobile-first. Más del 70% del tráfico llega desde teléfono, 
+generalmente después de ver un video en TikTok. El usuario típico tiene entre 
+18 y 35 años, vive en la ZMG, y toma decisiones rápido: si en los primeros 
+5 segundos no ve lo que busca, se va.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BRANDBOOK — SISTEMA DE IDENTIDAD VISUAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PALETA DE COLOR
+───────────────
+Primarios:
+  Negro profundo      #0A0A0A   → fondo dominante, atmósfera nocturna
+  Dorado Genesis      #C9A84C   → acento de marca, CTAs, titulares destacados
+  Papel cálido        #F5F3EC   → texto principal sobre fondo oscuro
+
+Secundarios:
+  Charcoal            #1A1A1A   → superficies elevadas, tarjetas
+  Dorado tenue        #8A7236   → bordes, elementos decorativos sutiles
+  Rojo corte          #C9472B   → urgencia, etiquetas de precio, alertas
+  Blanco muted        #C8C4B6   → texto de segundo nivel, notas
+
+Regla de uso: 80% negro / 15% dorado / 5% rojo. El dorado es el único color 
+que puede "cantar". El rojo solo aparece para un elemento por pantalla.
+Nunca usar degradados de dos colores llamativos juntos.
+
+TIPOGRAFÍA
+──────────
+Display (titulares grandes):  Bebas Neue
+  — Todo en mayúsculas, tracking amplio en títulos pequeños
+  — Tamaños: 52px desktop / 38px mobile para H1; 28-32px para H2
+  — Nunca usar en body copy ni en precios
+
+Cuerpo (texto funcional):     DM Sans
+  — Weights: 400 regular, 500 medium, 600 semibold
+  — Mínimo 15px en mobile, 16px en desktop
+  — Interlineado 1.55 para legibilidad en pantallas oscuras
+
+Utilitaria (etiquetas, chips, datos):  DM Mono
+  — Solo en mayúsculas con letter-spacing .08em
+  — Para precios, horarios, coordenadas, badges de categoría
+
+Escala tipográfica:
+  Hero H1:     Bebas Neue 52px / mobile 38px
+  H2 sección:  Bebas Neue 32px / mobile 26px
+  Eyebrow:     DM Mono 11px uppercase, color dorado
+  Body:        DM Sans 15-16px
+  Caption:     DM Sans 12px, color muted
+  Precio:      DM Mono 20px semibold, dorado
+
+ESPACIADO Y LAYOUT
+──────────────────
+Grid: 4 columnas en mobile (margin 16px), 12 columnas en desktop (max-width 1200px)
+Secciones: padding vertical 64px desktop / 48px mobile
+Componentes: border-radius 12px estándar; 20px para píldoras/chips; 0px para 
+  elementos que quieran sentirse más crudos y masculinos (barras de precio, 
+  divisores de sección)
+Sombras: offset shadows con opacidad 0.12-0.18; nunca sombras de colores
+Touch targets: mínimo 48px de altura en mobile para cualquier elemento clickeable
+
+TONO DE MARCA
+─────────────
+Confiado, directo, sin adornos. No vende — muestra. El copy no grita, 
+afirma. Habla de tú. Verbos de acción. Sin adjetivos vacíos como "increíble" 
+o "premium". El cliente ya sabe que son buenos — el sitio lo confirma con 
+evidencia, no con promesas.
+
+Ejemplos de tono correcto:
+  ✓  "Tu próximo corte. Sin llamadas, sin filas."
+  ✓  "Agenda en 30 segundos."
+  ✓  "12 de 12 clientes nos recomiendan."
+  ✗  "¡La mejor barbería de Zapopan!"
+  ✗  "Servicios increíbles de la más alta calidad"
+
+ELEMENTO FIRMA (lo que hace este sitio inconfundible)
+──────────────────────────────────────────────────────
+Una barra horizontal en el hero que muestra tres datos de prueba social 
+en tiempo real — estilo "ticker" estático pero con peso visual de cifra grande:
+  [ 55.7K  TikTok ]  [ 100%  Recomendado ]  [ +3.9M  Vistas ]
+Sobre fondo negro, en DM Mono dorado. No es decoración: es la razón por 
+la que el usuario confía antes de leer una sola palabra más.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUCTURA DE LA PÁGINA — LO QUE DEBES CONSTRUIR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Construye exactamente estas dos secciones, en este orden:
+
+SECCIÓN 1 — HERO (100vh en desktop, auto en mobile)
+─────────────────────────────────────────────────────
+Propósito: capturar en menos de 3 segundos. Un solo trabajo: hacer que 
+el usuario presione "Agendar cita".
+
+COMPONENTES OBLIGATORIOS:
+
+Nav fija (sticky):
+  — Logo "G / GENESIS barbería" alineado a la izquierda (texto, sin imagen)
+  — Un solo botón CTA a la derecha: "Agendar cita" — fondo dorado, 
+    texto negro, border-radius 24px, 44px altura mínima
+  — Sin menú hamburguesa innecesario; máximo 2 links adicionales en desktop
+
+Bloque hero principal (centrado verticalmente en la pantalla):
+  — Eyebrow label sobre el título: "CLOUTHIER · ZAPOPAN" en DM Mono dorado
+  — H1 en Bebas Neue, dos líneas máximo:
+      Línea 1: "CORTES QUE"
+      Línea 2: "HABLAN SOLOS." (la palabra "SOLOS" en dorado)
+  — Subtítulo en DM Sans 16px color muted:
+      "Fade, degradé y diseños a mano. Agenda en 30 segundos."
+  — CTA principal: botón grande "Agendar mi cita →" fondo dorado, texto negro
+  — CTA secundario: link texto "Ver nuestro trabajo ↓" color muted, sin botón
+
+Barra de prueba social (ELEMENTO FIRMA — debajo del CTA, antes del fold):
+  — Fondo #1A1A1A, borde superior 1px dorado tenue
+  — Tres columnas iguales separadas por líneas verticales:
+      [ 55.7K | seguidores TikTok ]
+      [ 100%  | recomendado ]  
+      [ +3.9M | vistas en un video ]
+  — Números en DM Mono dorado 22px; etiquetas en DM Mono gris 10px uppercase
+
+Fondo del hero:
+  — Negro profundo #0A0A0A con textura de ruido muy sutil (5% opacidad)
+  — Gradiente radial difuso desde arriba: rgba(201,168,76,0.10) → transparent
+  — Sin fotografía de fondo en el hero: el peso visual lo llevan los números, 
+    no una imagen. El espacio negativo es parte del diseño.
+  — Opcional: línea decorativa diagonal muy fina (1px, dorado 20% opacidad) 
+    cruzando la esquina inferior derecha — como una navaja de barbero
+
+
+SECCIÓN 2 — SERVICIOS (la sección esencial de conversión)
+──────────────────────────────────────────────────────────
+Propósito: responder las dos preguntas que el usuario se hace después del 
+hero: ¿qué hacen? ¿cuánto cuesta? Esta sección elimina la fricción final 
+antes de agendar.
+
+COMPONENTES OBLIGATORIOS:
+
+Encabezado de sección:
+  — Eyebrow: "MENÚ DE SERVICIOS" en DM Mono dorado
+  — H2: "Lo que hacemos." en Bebas Neue (el punto final es intencional — 
+    afirmación, no pregunta)
+  — Subtítulo: "Sin sorpresas. Precios visibles, tiempos claros."
+
+Grid de servicios (2 columnas en mobile, 3 en desktop):
+  Cada tarjeta contiene:
+    — Nombre del servicio en DM Sans 600 16px
+    — Descripción corta (1 línea) en DM Sans 400 13px color muted
+    — Precio en DM Mono dorado 20px (formato: "$XXX")
+    — Duración estimada en DM Mono gris 11px ("~30 min")
+    — Borde inferior 1px dorado tenue; fondo #131313; hover: borde dorado completo
+  
+  Servicios a mostrar (copy listo para usar):
+    Corte clásico       — Tijera o máquina con degradé natural    $XXX  ~30 min
+    Fade / Degradé      — Bajo, medio o alto, a tu medida          $XXX  ~35 min  
+    Corte + barba       — El combo completo en una sola visita      $XXX  ~50 min
+    Diseño de barba     — Perfilado, degradé y definición de líneas $XXX  ~25 min
+    Rasurado clásico    — Con navaja y toalla caliente              $XXX  ~40 min
+    Diseño artístico    — Patrones y dibujos a mano alzada          $XXX  ~60 min
+
+  Nota sobre precios: coloca "$—" si los precios no están confirmados aún. 
+  El placeholder "$—" comunica "hay precio, confirma en el local" — mejor 
+  que un hueco en blanco.
+
+CTA de cierre de sección:
+  — Una franja de fondo dorado (full-width), texto negro centrado:
+      "¿Listo para tu corte?"   [botón negro: "Agendar ahora →"]
+  — Sin iconos decorativos; solo texto y botón. La franja dorada ya es 
+    suficiente elemento visual.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSTRUCCIONES TÉCNICAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Stack:
+  — HTML5 semántico + CSS custom properties + JS vanilla mínimo
+  — Sin frameworks externos; sin Bootstrap; sin jQuery
+  — Fuentes: Google Fonts (@import Bebas Neue + DM Sans + DM Mono)
+  — Un solo archivo HTML autocontenido
+
+Mobile-first obligatorio:
+  — Viewport meta con viewport-fit=cover
+  — Breakpoint principal: 768px
+  — Touch targets mínimo 48px
+  — Font-size mínimo 15px en inputs y botones
+  — Safe area insets para iOS (env(safe-area-inset-*))
+
+Accesibilidad:
+  — Contraste mínimo AA (dorado #C9A84C sobre negro #0A0A0A = ratio ~5.3:1 ✓)
+  — Focus visible en todos los elementos interactivos
+  — Atributos aria-label en iconos y botones sin texto descriptivo
+
+Animaciones (solo si las implementas):
+  — prefers-reduced-motion respected con @media query
+  — Nada que dure más de 400ms
+  — Solo scroll-reveal en los servicios: fade-up suave, delay escalonado 
+    de 80ms entre tarjetas. Sin parallax, sin rotaciones, sin rebotes.
+
+Prohibido:
+  — Imágenes de stock o placeholders de servicio (usa alt descriptivo vacío 
+    si no hay imagen real)
+  — Sombras de color (solo sombras neutras con opacidad)
+  — Gradientes de dos colores vivos simultáneos
+  — Texto sobre imagen sin overlay suficiente (mínimo 60% de oscuridad)
+  — Menús de 5+ items en mobile
+  — Cualquier elemento que tarde más de 0.5s en aparecer en el primer render
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REFERENCIAS DE BENCHMARKS ESTUDIADOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Lo que funcionó en los mejores sitios de barbería analizados y que 
+debes aplicar aquí:
+
+  Scissors & Scotch   → video background en hero + CTA inmediato visible
+  Eddy's Barbershop   → fondo negro, galería centrada, nav limpia con booking
+  The Squire          → whitespace generoso, booking CTA siempre visible en scroll
+  Abel's on Queen     → identidad visual fuerte antes que foto, jerarquía clara
+  Fort Worth Barber   → servicios con descripción + precio + duración en una tarjeta
+
+Lo que evitamos porque aparece en todos y ya no diferencia:
+  — Hero con foto de barbero de stock sonriendo
+  — Paleta terracota / crema / serif clásico
+  — Animaciones de tijera o navaja girando como icono
+  — "Bienvenido a [nombre]" como primera línea del H1
+  — Sección de "Sobre nosotros" en segundo lugar (va después de servicios)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ENTREGA ESPERADA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Un archivo HTML único, autocontenido, que incluya:
+  1. Nav sticky con CTA
+  2. Hero completo con barra de prueba social
+  3. Sección de servicios con grid de tarjetas y CTA de cierre
+  4. CSS embebido en <style> siguiendo el brandbook al pie de la letra
+  5. JS mínimo solo para scroll-reveal si lo implementas
+
+El botón "Agendar cita" puede tener href="https://wa.me/523326201335" 
+como destino provisional (WhatsApp directo al número de la barbería).
+
+No agregues secciones adicionales, testimoniales, ni footer elaborado 
+en esta entrega — el foco es hero + servicios, perfecto, antes que 
+todo lo demás incompleto.

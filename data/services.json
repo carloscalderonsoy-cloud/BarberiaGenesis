@@ -1,0 +1,10 @@
+{
+  "services": [
+    { "name": "Corte clásico",    "desc": "Tijera o máquina con degradé natural.",       "price": "$—", "time": "~30 min" },
+    { "name": "Fade / Degradé",   "desc": "Bajo, medio o alto, a tu medida.",             "price": "$—", "time": "~35 min" },
+    { "name": "Corte + barba",    "desc": "El combo completo en una sola visita.",        "price": "$—", "time": "~50 min" },
+    { "name": "Diseño de barba",  "desc": "Perfilado, degradé y definición de líneas.",   "price": "$—", "time": "~25 min" },
+    { "name": "Rasurado clásico", "desc": "Con navaja y toalla caliente.",                "price": "$—", "time": "~40 min" },
+    { "name": "Diseño artístico", "desc": "Patrones y dibujos a mano alzada.",            "price": "$—", "time": "~60 min" }
+  ]
+}

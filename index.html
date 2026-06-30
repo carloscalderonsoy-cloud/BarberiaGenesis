@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Genesis Barbería · Zapopan — Agenda tu corte</title>
+<meta name="description" content="Barbería Genesis Clouthier en Zapopan. Fade, degradé y diseños a mano. Agenda en 30 segundos." />
+<meta name="theme-color" content="#0A0A0A" />
+
+<meta property="og:title" content="Genesis Barbería · Zapopan" />
+<meta property="og:description" content="Cortes que hablan solos. Agenda en 30 segundos." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/images/hero-shave.png" />
+
+<link rel="icon" href="assets/images/logo-genesis.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============ TOKENS — Brandbook Genesis ============ */
+  :root {
+    --black:      #0A0A0A;
+    --charcoal:   #1A1A1A;
+    --surface:    #131313;
+    --gold:       #C9A84C;
+    --gold-soft:  #d8b95e;
+    --gold-dim:   #8A7236;
+    --paper:      #F5F3EC;
+    --muted:      #C8C4B6;
+    --dim:        #8b8778;
+    --red:        #C9472B;
+
+    --maxw: 1200px;
+    --gutter: 16px;
+    --sec-pad: 56px;
+
+    --font-display: 'Bebas Neue', system-ui, sans-serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'DM Mono', ui-monospace, monospace;
+  }
+  @media (min-width: 768px) { :root { --gutter: 24px; --sec-pad: 80px; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--black);
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--gold); color: var(--black); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap {
+    width: 100%; max-width: var(--maxw); margin: 0 auto;
+    padding-left: var(--gutter); padding-right: var(--gutter);
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold); margin: 0;
+  }
+  .eyebrow::before {
+    content: ""; width: 22px; height: 1px; background: var(--gold-dim); display: inline-block;
+  }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,10,0.78);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(138,114,54,0.28);
+  }
+  .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 11px; min-height: 44px; }
+  .brand__mark { width: 40px; height: 40px; border-radius: 50%; flex: none; object-fit: cover; box-shadow: 0 0 0 1px rgba(201,168,76,0.4); }
+  .brand__name { display: flex; flex-direction: column; line-height: 1; }
+  .brand__name b { font-family: var(--font-display); font-weight: 400; font-size: 23px; letter-spacing: 0.06em; color: var(--paper); }
+  .brand__name span { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-top: 2px; }
+  .nav__links { display: none; align-items: center; gap: 30px; }
+  .nav__links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); transition: color .2s ease; }
+  .nav__links a:hover { color: var(--paper); }
+  @media (min-width: 768px) { .nav__inner { height: 74px; } .nav__links { display: flex; } }
+
+  /* ============ BUTTONS ============ */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    font-family: var(--font-body); font-weight: 600; font-size: 15px; line-height: 1;
+    cursor: pointer; border: none; white-space: nowrap;
+    transition: transform .18s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .btn--gold { background: var(--gold); color: var(--black); padding: 0 22px; height: 44px; border-radius: 24px; }
+  .btn--gold:hover { background: var(--gold-soft); transform: translateY(-1px); }
+  .btn--gold:active { transform: translateY(0); }
+  .btn--lg { height: 56px; font-size: 16px; padding: 0 32px; box-shadow: 0 14px 30px rgba(0,0,0,0.35); }
+  .btn--black { background: var(--black); color: var(--paper); padding: 0 26px; height: 50px; border-radius: 24px; }
+  .btn--black:hover { background: #181818; transform: translateY(-1px); }
+  .link-arrow {
+    display: inline-flex; align-items: center; gap: 7px; min-height: 44px;
+    font-family: var(--font-body); font-weight: 500; font-size: 15px; color: var(--muted);
+    transition: color .2s ease, gap .2s ease;
+  }
+  .link-arrow:hover { color: var(--gold); gap: 11px; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(110% 70% at 70% -5%, rgba(201,168,76,0.13) 0%, rgba(201,168,76,0) 55%),
+      var(--black);
+  }
+  .grain::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+  .hero::after {
+    content: ""; position: absolute; right: -8%; bottom: -28%; width: 55%; height: 190%;
+    border-left: 1px solid rgba(201,168,76,0.18); transform: rotate(26deg); transform-origin: bottom right;
+    pointer-events: none; z-index: 0;
+  }
+  .hero__inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr; gap: 40px;
+    padding-top: 44px; padding-bottom: 44px;
+  }
+  .hero__copy { max-width: 560px; }
+  .hero__eyebrow { margin-bottom: 20px; }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(48px, 13vw, 88px); line-height: 0.9; letter-spacing: 0.01em;
+    margin: 0; text-transform: uppercase;
+  }
+  .hero h1 .gold { color: var(--gold); }
+  .hero__sub { color: var(--muted); font-size: 16px; margin: 22px 0 30px; max-width: 40ch; }
+  .hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+
+  /* hero art collage */
+  .hero__art { position: relative; width: 100%; max-width: 460px; margin: 0 auto; }
+  .art-frame { position: relative; overflow: hidden; border: 1px solid rgba(138,114,54,0.45); background: var(--charcoal); }
+  .art-frame img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.04) saturate(0.92); }
+  .art-frame::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,0.55) 100%), rgba(201,168,76,0.05);
+  }
+  .art-main { aspect-ratio: 4/5; width: 80%; margin-left: auto; box-shadow: 0 30px 70px rgba(0,0,0,0.5); }
+  .art-sub {
+    position: absolute; left: 0; bottom: -6%; width: 46%; aspect-ratio: 3/4;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.55); z-index: 2;
+  }
+  .art-badge {
+    position: absolute; top: 14px; right: 14px; z-index: 3;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--paper); background: rgba(10,10,10,0.55); border: 1px solid rgba(201,168,76,0.4);
+    padding: 6px 10px; border-radius: 20px;
+  }
+  .art-pole {
+    position: absolute; left: 50%; bottom: -22px; transform: translateX(-50%); z-index: 3;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--dim);
+  }
+  @media (min-width: 860px) {
+    .hero { min-height: calc(100svh - 74px); display: flex; align-items: center; }
+    .hero__inner {
+      grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 64px;
+      padding-top: 40px; padding-bottom: 40px; width: 100%;
+    }
+    .hero__art { max-width: none; }
+    .art-main { aspect-ratio: auto; height: 480px; width: 82%; }
+    .art-sub { width: 44%; aspect-ratio: auto; height: 270px; bottom: -8%; }
+  }
+
+  /* ============ SOCIAL PROOF BAR ============ */
+  .proof { background: var(--charcoal); border-top: 1px solid rgba(138,114,54,0.5); border-bottom: 1px solid rgba(138,114,54,0.2); }
+  .proof__grid { display: grid; grid-template-columns: repeat(3, 1fr); max-width: var(--maxw); margin: 0 auto; }
+  .proof__cell { text-align: center; padding: 26px 8px; border-right: 1px solid rgba(138,114,54,0.22); }
+  .proof__cell:last-child { border-right: none; }
+  .proof__num { font-family: var(--font-mono); font-weight: 500; font-size: clamp(22px, 6vw, 30px); color: var(--gold); line-height: 1; }
+  .proof__lbl { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-top: 9px; }
+  @media (min-width: 768px) { .proof__cell { padding: 32px 12px; } }
+
+  /* ============ GALLERY ============ */
+  .gallery { padding-top: var(--sec-pad); padding-bottom: 8px; position: relative; }
+  .sec-head { max-width: 640px; margin-bottom: 34px; }
+  .sec-head h2 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(32px, 8vw, 48px); line-height: 0.96; text-transform: uppercase; letter-spacing: 0.01em;
+    margin: 14px 0 0;
+  }
+  .sec-head p { color: var(--muted); font-size: 15px; margin: 12px 0 0; }
+
+  .gal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; grid-auto-rows: 150px; }
+  .gal-item { position: relative; overflow: hidden; border: 1px solid rgba(138,114,54,0.3); }
+  .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; filter: contrast(1.03); }
+  .gal-item::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.6) 100%); }
+  .gal-item:hover img { transform: scale(1.05); }
+  .gal-item:hover { border-color: var(--gold); }
+  .gal-cap {
+    position: absolute; left: 12px; bottom: 11px; z-index: 2;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper);
+  }
+  .gal-item.tall { grid-row: span 2; }
+  @media (min-width: 768px) {
+    .gal-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; grid-auto-rows: 190px; }
+    .gal-item.wide { grid-column: span 2; }
+  }
+
+  /* ============ SERVICIOS ============ */
+  .services { padding-top: var(--sec-pad); padding-bottom: var(--sec-pad); }
+  .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 768px) { .svc-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+
+  .svc {
+    position: relative; background: var(--surface);
+    border: 1px solid transparent; border-bottom: 1px solid rgba(138,114,54,0.4);
+    padding: 20px 16px 16px; display: flex; flex-direction: column; min-height: 178px;
+    transition: border-color .25s ease, background .25s ease, transform .25s ease;
+    opacity: 0; transform: translateY(16px);
+  }
+  .svc.in { opacity: 1; transform: translateY(0); }
+  .svc:hover { border-color: var(--gold); background: #171717; transform: translateY(-2px); }
+  .svc__idx { font-family: var(--font-mono); font-size: 11px; color: var(--gold-dim); letter-spacing: 0.1em; margin-bottom: 12px; }
+  .svc__name { font-family: var(--font-body); font-weight: 600; font-size: 16px; margin: 0; color: var(--paper); }
+  .svc__desc { font-family: var(--font-body); font-weight: 400; font-size: 13px; color: var(--muted); margin: 6px 0 0; flex: 1; }
+  .svc__foot { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: 16px; }
+  .svc__price { font-family: var(--font-mono); font-weight: 500; font-size: 20px; color: var(--gold); }
+  .svc__time { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--dim); }
+
+  /* ============ PROCESO ============ */
+  .process { padding-top: var(--sec-pad); padding-bottom: var(--sec-pad); background: var(--charcoal); border-top: 1px solid rgba(138,114,54,0.18); border-bottom: 1px solid rgba(138,114,54,0.18); }
+  .step-grid { display: grid; grid-template-columns: 1fr; gap: 0; counter-reset: steps; }
+  @media (min-width: 768px) { .step-grid { grid-template-columns: repeat(3, 1fr); gap: 0; } }
+  .step {
+    position: relative; padding: 28px 24px 28px 72px;
+    border-bottom: 1px solid rgba(138,114,54,0.15);
+    transition: background .25s ease;
+    counter-increment: steps;
+  }
+  .step:last-child { border-bottom: none; }
+  @media (min-width: 768px) {
+    .step { border-bottom: none; border-right: 1px solid rgba(138,114,54,0.15); padding: 36px 28px 36px 72px; }
+    .step:last-child { border-right: none; }
+  }
+  .step:hover { background: rgba(201,168,76,0.04); }
+  .step::before {
+    content: counter(steps, decimal-leading-zero);
+    position: absolute; left: 20px; top: 28px;
+    font-family: var(--font-display); font-size: 38px; line-height: 1;
+    color: rgba(201,168,76,0.22); letter-spacing: 0.02em;
+  }
+  @media (min-width: 768px) { .step::before { top: 36px; } }
+  .step__icon { font-size: 26px; margin-bottom: 14px; display: block; }
+  .step__title { font-family: var(--font-body); font-weight: 600; font-size: 17px; color: var(--paper); margin: 0 0 6px; }
+  .step__body { font-family: var(--font-body); font-size: 14px; color: var(--muted); margin: 0; line-height: 1.5; }
+
+  /* ============ TESTIMONIOS ============ */
+  .testimonials { padding-top: var(--sec-pad); padding-bottom: var(--sec-pad); }
+  .testi-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 34px; }
+  @media (min-width: 640px) { .testi-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .testi-grid { grid-template-columns: repeat(4, 1fr); } }
+  .testi {
+    background: var(--surface); border: 1px solid rgba(138,114,54,0.22);
+    padding: 22px 20px; display: flex; flex-direction: column; gap: 14px;
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .testi:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .testi__stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; }
+  .testi__text { font-family: var(--font-body); font-size: 14px; color: var(--muted); line-height: 1.55; flex: 1; margin: 0; }
+  .testi__text::before { content: "\201C"; }
+  .testi__text::after { content: "\201D"; }
+  .testi__author { display: flex; align-items: center; gap: 11px; margin-top: auto; }
+  .testi__avatar {
+    width: 36px; height: 36px; border-radius: 50%; flex: none;
+    background: var(--gold-dim); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 16px; color: var(--black); letter-spacing: 0.04em;
+  }
+  .testi__name { font-family: var(--font-body); font-weight: 600; font-size: 14px; color: var(--paper); }
+  .testi__src { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+
+  /* ============ UBICACIÓN ============ */
+  .location { padding-top: var(--sec-pad); padding-bottom: var(--sec-pad); background: var(--charcoal); border-top: 1px solid rgba(138,114,54,0.18); }
+  .loc-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 34px; }
+  @media (min-width: 768px) { .loc-grid { grid-template-columns: 1fr 1fr; align-items: start; gap: 56px; } }
+  .loc-info { display: flex; flex-direction: column; gap: 24px; }
+  .loc-row { display: flex; align-items: flex-start; gap: 16px; }
+  .loc-row__icon { width: 40px; height: 40px; border: 1px solid rgba(138,114,54,0.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex: none; margin-top: 2px; }
+  .loc-row__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); display: block; margin-bottom: 4px; }
+  .loc-row__val { font-family: var(--font-body); font-size: 15px; color: var(--paper); margin: 0; line-height: 1.45; }
+  .hours-table { width: 100%; border-collapse: collapse; }
+  .hours-table td { font-family: var(--font-body); font-size: 14px; padding: 5px 0; color: var(--muted); }
+  .hours-table td:first-child { color: var(--paper); font-weight: 500; width: 50%; }
+  .hours-table tr:not(:last-child) td { border-bottom: 1px solid rgba(138,114,54,0.1); }
+  .hours-table .today td { color: var(--gold) !important; }
+  .loc-map { position: relative; aspect-ratio: 4/3; overflow: hidden; border: 1px solid rgba(138,114,54,0.3); background: var(--surface); }
+  .loc-map iframe { width: 100%; height: 100%; border: 0; filter: invert(0.92) hue-rotate(200deg) saturate(0.4); }
+  .loc-map__overlay {
+    position: absolute; inset: 0; pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(201,168,76,0.3);
+  }
+
+  /* ============ CTA CIERRE ============ */
+  .closer { background: var(--gold); color: var(--black); position: relative; overflow: hidden; }
+  .closer::before {
+    content: ""; position: absolute; right: -60px; top: -60px; width: 260px; height: 260px;
+    border: 1px solid rgba(10,10,10,0.12); border-radius: 50%;
+  }
+  .closer__inner { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; padding-top: 44px; padding-bottom: 44px; }
+  .closer h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 8vw, 50px); line-height: 0.96; text-transform: uppercase; margin: 0; }
+  .closer__note { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(10,10,10,0.7); margin: -8px 0 0; }
+  @media (min-width: 768px) { .closer__inner { flex-direction: row; align-items: center; justify-content: space-between; padding-top: 56px; padding-bottom: 56px; } }
+
+  /* ============ FOOTER ============ */
+  .foot { border-top: 1px solid rgba(138,114,54,0.2); }
+  .foot__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding-top: 28px; padding-bottom: 28px; }
+  .foot a, .foot span { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+  .foot a:hover { color: var(--gold); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .svc { opacity: 1 !important; transform: none !important; transition: border-color .25s ease, background .25s ease !important; }
+    .btn, .link-arrow, .gal-item img { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Genesis Barbería — inicio">
+        <img class="brand__mark" src="assets/images/logo-genesis.png" alt="Logo Genesis Barbería" width="40" height="40" />
+        <span class="brand__name"><b>GENESIS</b><span>Barbería</span></span>
+      </a>
+      <nav class="nav__links" aria-label="Navegación principal">
+        <a href="#galeria">El local</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#testimonios">Reseñas</a>
+        <a href="#ubicacion">Ubicación</a>
+      </nav>
+      <a class="btn btn--gold js-book" href="#" aria-label="Agendar cita por WhatsApp">Agendar cita</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero grain">
+      <div class="wrap hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow hero__eyebrow js-location">Clouthier · Zapopan</p>
+          <h1>Cortes que<br /><span class="gold">hablan solos.</span></h1>
+          <p class="hero__sub">Fade, degradé y diseños a mano. Agenda en 30 segundos.</p>
+          <div class="hero__ctas">
+            <a class="btn btn--gold btn--lg js-book" href="#">Agendar mi cita &rarr;</a>
+            <a class="link-arrow" href="#galeria">Ver nuestro trabajo &darr;</a>
+          </div>
+        </div>
+
+        <div class="hero__art reveal">
+          <figure class="art-frame art-main">
+            <img src="assets/images/hero-shave.png" alt="Perfilado con navaja en Genesis Barbería" />
+            <span class="art-badge">Genesis · Clouthier</span>
+          </figure>
+          <figure class="art-frame art-sub">
+            <img src="assets/images/barba-navaja.png" alt="Diseño de barba con navaja" />
+          </figure>
+          <span class="art-pole">Trabajo real, sin filtros</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BARRA PRUEBA SOCIAL (firma) ============ -->
+    <section class="proof" aria-label="Prueba social">
+      <div class="proof__grid js-stats">
+        <div class="proof__cell"><span class="proof__num" data-to="55.7" data-suffix="K" data-dec="1">0</span><span class="proof__lbl">seguidores TikTok</span></div>
+        <div class="proof__cell"><span class="proof__num" data-to="100" data-suffix="%" data-dec="0">0</span><span class="proof__lbl">recomendado</span></div>
+        <div class="proof__cell"><span class="proof__num" data-to="3.9" data-prefix="+" data-suffix="M" data-dec="1">0</span><span class="proof__lbl">vistas en un video</span></div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESO ============ -->
+    <section class="process" id="proceso">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Así de fácil</p>
+          <h2>3 pasos, listo.</h2>
+          <p>Sin apps, sin registros. Solo tú, tu WhatsApp y tus ganas de verte bien.</p>
+        </div>
+        <div class="step-grid reveal">
+          <div class="step">
+            <span class="step__icon">✂️</span>
+            <h3 class="step__title">Elige tu servicio</h3>
+            <p class="step__body">Corte, fade, barba o el combo. Revisa el menú y decide qué quieres.</p>
+          </div>
+          <div class="step">
+            <span class="step__icon">📲</span>
+            <h3 class="step__title">Agenda por WhatsApp</h3>
+            <p class="step__body">Un mensaje, sin llamadas. Confirmamos tu hora en minutos.</p>
+          </div>
+          <div class="step">
+            <span class="step__icon">💈</span>
+            <h3 class="step__title">Llega y disfruta</h3>
+            <p class="step__body">Billar, música y barberos que saben su oficio. Solo preséntate.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALERÍA ============ -->
+    <section class="gallery" id="galeria">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Dentro de Genesis</p>
+          <h2>El local.</h2>
+          <p>Mesa de billar, buena música y barberos que saben lo que hacen.</p>
+        </div>
+        <div class="gal-grid reveal">
+          <div class="gal-item wide tall"><img src="assets/images/billar-local.png" alt="Interior de Genesis Barbería con mesa de billar" /><span class="gal-cap">El ambiente</span></div>
+          <div class="gal-item"><img src="assets/images/espejo-corte.png" alt="Corte frente al espejo" /><span class="gal-cap">El corte</span></div>
+          <div class="gal-item"><img src="assets/images/pago-mostrador.png" alt="Productos y atención en mostrador" /><span class="gal-cap">Productos</span></div>
+          <div class="gal-item wide"><img src="assets/images/barba-navaja.png" alt="Diseño de barba con navaja" /><span class="gal-cap">El detalle</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICIOS ============ -->
+    <section class="services" id="servicios">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Menú de servicios</p>
+          <h2>Lo que hacemos.</h2>
+          <p>Sin sorpresas. Precios visibles, tiempos claros.</p>
+        </div>
+        <div class="svc-grid js-services"></div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIOS ============ -->
+    <section class="testimonials" id="testimonios">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Lo que dicen</p>
+          <h2>Clientes reales.</h2>
+          <p>Sin guion, sin edición. Puro boca a boca.</p>
+        </div>
+        <div class="testi-grid reveal">
+          <article class="testi">
+            <div class="testi__stars">★★★★★</div>
+            <p class="testi__text">El fade quedó impecable. Ya no voy a ningún otro lado, Genesis es nivel.</p>
+            <div class="testi__author">
+              <div class="testi__avatar">JR</div>
+              <div>
+                <p class="testi__name">Jesús R.</p>
+                <span class="testi__src">Google</span>
+              </div>
+            </div>
+          </article>
+          <article class="testi">
+            <div class="testi__stars">★★★★★</div>
+            <p class="testi__text">Vine por el TikTok y me quedé por el corte. El ambiente del local está chido y los barberos son top.</p>
+            <div class="testi__author">
+              <div class="testi__avatar">AL</div>
+              <div>
+                <p class="testi__name">Aldo L.</p>
+                <span class="testi__src">Google</span>
+              </div>
+            </div>
+          </article>
+          <article class="testi">
+            <div class="testi__stars">★★★★★</div>
+            <p class="testi__text">El diseño de barba me lo hicieron exactamente como quería. Rapidísimo y muy buen precio.</p>
+            <div class="testi__author">
+              <div class="testi__avatar">MV</div>
+              <div>
+                <p class="testi__name">Miguel V.</p>
+                <span class="testi__src">WhatsApp</span>
+              </div>
+            </div>
+          </article>
+          <article class="testi">
+            <div class="testi__stars">★★★★★</div>
+            <p class="testi__text">Mejor barbería de Zapopan sin duda. Equipo profesional, local increíble. Los recomiendo al 100%.</p>
+            <div class="testi__author">
+              <div class="testi__avatar">CE</div>
+              <div>
+                <p class="testi__name">Carlos E.</p>
+                <span class="testi__src">Google</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UBICACIÓN ============ -->
+    <section class="location" id="ubicacion">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Encuéntranos</p>
+          <h2>¿Cómo llegar?</h2>
+          <p>Estamos en Zapopan. Fácil de encontrar, difícil de olvidar.</p>
+        </div>
+        <div class="loc-grid reveal">
+          <div class="loc-info">
+            <div class="loc-row">
+              <div class="loc-row__icon">📍</div>
+              <div>
+                <span class="loc-row__label">Dirección</span>
+                <p class="loc-row__val">Av. Clouthier, Zapopan<br/>Jalisco, México</p>
+              </div>
+            </div>
+            <div class="loc-row">
+              <div class="loc-row__icon">📲</div>
+              <div>
+                <span class="loc-row__label">WhatsApp / Citas</span>
+                <p class="loc-row__val"><a class="js-book" href="#" style="color:var(--gold)">Escríbenos ahora →</a></p>
+              </div>
+            </div>
+            <div class="loc-row">
+              <div class="loc-row__icon">🕐</div>
+              <div>
+                <span class="loc-row__label">Horarios</span>
+                <table class="hours-table js-hours">
+                  <tr><td>Lunes – Viernes</td><td>10:00 – 21:00</td></tr>
+                  <tr><td>Sábado</td><td>09:00 – 21:00</td></tr>
+                  <tr><td>Domingo</td><td>10:00 – 19:00</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="loc-map">
+            <iframe
+              title="Ubicación Genesis Barbería Zapopan"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.1!2d-103.4!3d20.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842f4f0000000001%3A0x0!2sZapopan%2C+Jalisco!5e0!3m2!1ses!2smx!4v1234567890"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="loc-map__overlay"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA CIERRE ============ -->
+    <section class="closer">
+      <div class="wrap closer__inner">
+        <div>
+          <h3>¿Listo para tu corte?</h3>
+          <p class="closer__note">Sin llamadas, sin filas. Agenda por WhatsApp.</p>
+        </div>
+        <a class="btn btn--black js-book" href="#">Agendar ahora &rarr;</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__inner">
+      <span>Genesis Barbería © <span class="js-year">2026</span></span>
+      <span>Zapopan, Jalisco</span>
+      <a class="js-book" href="#">WhatsApp →</a>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var FALLBACK = {
+      whatsapp: "https://wa.me/523326201335",
+      services: [
+        { name: "Corte clásico",    desc: "Tijera o máquina con degradé natural.",     price: "$—", time: "~30 min" },
+        { name: "Fade / Degradé",   desc: "Bajo, medio o alto, a tu medida.",           price: "$—", time: "~35 min" },
+        { name: "Corte + barba",    desc: "El combo completo en una sola visita.",      price: "$—", time: "~50 min" },
+        { name: "Diseño de barba",  desc: "Perfilado, degradé y definición de líneas.", price: "$—", time: "~25 min" },
+        { name: "Rasurado clásico", desc: "Con navaja y toalla caliente.",              price: "$—", time: "~40 min" },
+        { name: "Diseño artístico", desc: "Patrones y dibujos a mano alzada.",          price: "$—", time: "~60 min" }
+      ]
+    };
+
+    function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+
+    function renderServices(list){
+      var grid = document.querySelector(".js-services"); if(!grid) return;
+      grid.innerHTML = list.map(function(s,i){
+        var n = String(i+1).padStart(2,"0");
+        return '<article class="svc" style="transition-delay:'+(i*70)+'ms">'+
+          '<span class="svc__idx">'+n+'</span>'+
+          '<h3 class="svc__name">'+esc(s.name)+'</h3>'+
+          '<p class="svc__desc">'+esc(s.desc)+'</p>'+
+          '<div class="svc__foot"><span class="svc__price">'+esc(s.price)+'</span><span class="svc__time">'+esc(s.time)+'</span></div>'+
+        '</article>';
+      }).join("");
+      observe(grid.querySelectorAll(".svc"));
+    }
+
+    function setBooking(url){ document.querySelectorAll(".js-book").forEach(function(a){ a.setAttribute("href", url); }); }
+
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // generic reveal observer
+    function observe(nodes){
+      if(reduce || !("IntersectionObserver" in window)){ nodes.forEach(function(n){ n.classList.add("in"); }); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+      nodes.forEach(function(n){ io.observe(n); });
+    }
+
+    // animated counters
+    function animateCount(el){
+      var to = parseFloat(el.getAttribute("data-to"))||0;
+      var dec = parseInt(el.getAttribute("data-dec")||"0",10);
+      var pre = el.getAttribute("data-prefix")||"";
+      var suf = el.getAttribute("data-suffix")||"";
+      if(reduce){ el.textContent = pre+to.toFixed(dec)+suf; return; }
+      var start = null, dur = 1100;
+      function step(t){
+        if(!start) start = t;
+        var p = Math.min((t-start)/dur, 1);
+        var eased = 1 - Math.pow(1-p, 3);
+        el.textContent = pre + (to*eased).toFixed(dec) + suf;
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    function watchStats(){
+      var nums = document.querySelectorAll(".proof__num");
+      if(!("IntersectionObserver" in window)){ nums.forEach(animateCount); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ animateCount(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.6 });
+      nums.forEach(function(n){ io.observe(n); });
+    }
+
+    // boot
+    setBooking(FALLBACK.whatsapp);
+    renderServices(FALLBACK.services);
+    observe(document.querySelectorAll(".reveal"));
+    watchStats();
+    var y = document.querySelector(".js-year"); if(y) y.textContent = new Date().getFullYear();
+
+    fetch("data/site.json").then(function(r){ return r.ok?r.json():null; })
+      .then(function(d){ if(d&&d.whatsapp) setBooking(d.whatsapp); }).catch(function(){});
+    fetch("data/services.json").then(function(r){ return r.ok?r.json():null; })
+      .then(function(d){ if(d&&Array.isArray(d.services)&&d.services.length) renderServices(d.services); }).catch(function(){});
+
+    // highlight today in hours table
+    (function(){
+      var day = new Date().getDay(); // 0=Sun,1=Mon...6=Sat
+      var rows = document.querySelectorAll(".hours-table tr");
+      // row 0 = Mon-Fri (days 1-5), row 1 = Sat (6), row 2 = Sun (0)
+      var map = { 1:0,2:0,3:0,4:0,5:0, 6:1, 0:2 };
+      var idx = map[day];
+      if(rows[idx]) rows[idx].classList.add("today");
+    })();
+  })();
+  </script>
+</body>
+</html>
